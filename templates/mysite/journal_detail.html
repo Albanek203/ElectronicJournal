@@ -1,0 +1,57 @@
+{% extends 'mysite/base.html' %}
+
+{% block content %}
+
+    <div class="m-5"><span class="journal-name">{{ journal.name }}</span></div>
+
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            {% for topic in topics %}
+                <th></th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="2"></td>
+
+            {% for topic in topics %}
+                <td class="rotate">{{ topic.name }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td style="width: 40px">
+                №
+            </td>
+            <td>
+                Name and Surname
+            </td>
+            {% for topic in topics %}
+                <td class="rotate">{{ topic.date|date:"m.d.Y" }}</td>
+            {% endfor %}
+        </tr>
+        {% for student_journal in student_journals %}
+            <tr>
+                <td>
+                    {{ forloop.counter }}
+                </td>
+                <td>
+                    {{ student_journal.student.user.first_name }} {{ student_journal.student.user.last_name }}
+                </td>
+                {% for topic in topics %}
+                    <td>
+                        {% for mark in marks %}
+                            {% if topic.id == mark.topic_id and student_journal.student.id ==  mark.student_id %}
+                                {{ mark.mark }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

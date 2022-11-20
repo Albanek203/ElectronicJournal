@@ -1,0 +1,11 @@
+{% extends 'mysite/base.html' %}
+
+{% block content %}
+    <div class="d-flex flex-wrap">
+        {% for journal in journals %}
+            <div class="journal">
+                <a href="{% url 'journal_detail' pk=journal.pk %}">{{ journal.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
